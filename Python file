@@ -1,0 +1,38 @@
+while True:
+    print("Hello, what is your name?")
+    name = input()
+    print("That's a good name,", name + "!")
+
+    print("How are you doing? (good/neutral/bad)")
+    answer = input().lower()
+
+    if answer == "bad":
+        print("Tell me what happened and I'll try to help.")
+    elif answer == "neutral":
+        print("Let's find a way to make this day better.")
+    elif answer == "good":
+        print("Keep having an amazing day!!!!!!!!!")
+    else:
+        print("I hope your day improves!")
+
+    print("What hobbies and activities are you interested in?")
+    response = input().lower()
+
+    if response == "sports":
+        print("You're an amazing athlete!!!!!!!!!!")
+    else:
+        print("Amazing!!!!!!!!!!")
+
+    print("Are you good at your hobby? (yes/no)")
+    variable = input().lower()
+
+    if variable == "yes":
+        print("Amazing job!!!!!!!!!")
+    elif variable == "no":
+        print("Work hard and you can achieve anything!!!!!!!!!!")
+
+    print("Do you want to continue the conversation or exit? (continue/exit)")
+    end = input().lower()
+
+    if end == "exit":
+        break
