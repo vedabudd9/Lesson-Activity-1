@@ -4,7 +4,7 @@ from colorama import init, Fore, Style
 def display_board(board):
     print()
     def colored(cell):
-        if cell == 'X':
+        if cell ='X':
             return Fore.RED + cell+ Style.RESET_ALL
         elif cell= '0' :
             return Fore.BLUE + cell + Style.RESET_ALL 
