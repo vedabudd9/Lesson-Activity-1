@@ -1,0 +1,79 @@
+# sentiment_spy.py
+
+from colorama import Fore, Style, init
+import time
+
+# Initialize colorama
+init(autoreset=True)
+
+# 1. Define Functions
+def show_processing_animation():
+    """Displays a simple loading animation (spinning line) while processing."""
+    print(Fore.YELLOW + "Processing sentiment", end="", flush=True)
+    for _ in range(5):
+        for ch in "|/-\\":
+            print(Fore.YELLOW + f"\rProcessing sentiment {ch}", end="", flush=True)
+            time.sleep(0.2)
+    print(Style.RESET_ALL)
+
+def analyze_sediment(text):
+    """
+    Analyzes sentiment based on polarity score.
+    Returns: 'positive', 'negative', or 'neutral'.
+    """
+    # Very basic sentiment logic based on keywords
+    positive_words = ["good", "great", "happy", "awesome", "fantastic", "love"]
+    negative_words = ["bad", "sad", "terrible", "hate", "horrible", "angry"]
+
+    text_lower = text.lower()
+    pos_count = sum(word in text_lower for word in positive_words)
+    neg_count = sum(word in text_lower for word in negative_words)
+
+    if pos_count > neg_count:
+        return "positive"
+    elif neg_count > pos_count:
+        return "negative"
+    else:
+        return "neutral"
+
+def execute_command(command):
+    """Executes commands: summary, history, repeat, help, or sentiment analysis."""
+    global last_input
+
+    if command.lower() == "summary":
+        print(Fore.CYAN + "Summary: Sentiment analysis project - enter text to see its sentiment.")
+    elif command.lower() == "history":
+        print(Fore.MAGENTA + f"History: {history}")
+    elif command.lower() == "repeat":
+        if last_input:
+            execute_command(last_input)
+        else:
+            print(Fore.YELLOW + "No previous input to repeat.")
+    elif command.lower() == "help":
+        print(Fore.GREEN + "Enter a sentence, and I will tell you if it’s positive, negative, or neutral.")
+        print("Other commands: summary, history, repeat, help, exit")
+    elif command.lower() == "exit":
+        print(Fore.RED + "Exiting program...")
+        return False
+    else:
+        show_processing_animation()
+        sentiment = analyze_sediment(command)
+        print(Fore.WHITE + f"Sentiment detected: {sentiment}")
+        history.append((command, sentiment))
+    return True
+
+# 2. Main Chatbot Loop
+history = []
+last_input = None
+
+while True:
+    answer = input(Fore.WHITE + "Enter a sentence or command: ")
+    last_input = answer
+    if not execute_command(answer):
+        break
+
+# 3. Save Summary to File
+username = "user"  # Replace with actual username
+with open(f"{username}_sediment_analysis.txt", "w") as f:
+    for entry in history:
+        f.write(f"{entry[0]} -> {entry[1]}\n")
